@@ -1,0 +1,57 @@
+{
+    "id": "069FD11F498D4FC4AC3A054D84606A20",
+    "suspended": false,
+    "plan_identifier": "48",
+    "price_cents": 20160,
+    "currency": "BRL",
+    "features": {},
+    "expires_at": null,
+    "created_at": "2022-02-22T22:25:42-03:00",
+    "updated_at": "2022-02-22T22:25:44-03:00",
+    "customer_name": "WESLEY",
+    "customer_email": "wesley8bu@gmail.com",
+    "cycled_at": "2022-02-23",
+    "credits_min": 0,
+    "credits_cycle": null,
+    "payable_with": "credit_card",
+    "ignore_due_email": false,
+    "max_cycles": 0,
+    "cycles_count": 0,
+    "customer_id": "C6DC4157A2D84E43B9EA4AC5D1286956",
+    "plan_name": "PLANO",
+    "customer_ref": "WESLEY",
+    "plan_ref": "PLANO",
+    "active": true,
+    "two_step": false,
+    "suspend_on_invoice_expired": true,
+    "in_trial": null,
+    "credits": 0,
+    "credits_based": false,
+    "recent_invoices": [
+        {
+            "id": "02CFA8D973694CD18AE6E757094B400B",
+            "due_date": "2022-02-22",
+            "status": "pending",
+            "total": "201.60 BRL",
+            "secure_url": "https://faturas.iugu.com/02cfa8d9-7369-4cd1-8ae6-e757094b400b-7c88"
+        }
+    ],
+    "subitems": [],
+    "logs": [
+        {
+            "id": "F029FB4C3C544E9797E75D557EEC9FEF",
+            "description": "Invoice created",
+            "notes": "Invoice created with items:  1x Ativação de Assinatura: PLANO = R$ 201,60;",
+            "subscription_changes": "{\"plan_identifier\":[null,\"48\"],\"price_cents\":[null,20160],\"customer_id\":[null,\"C6DC4157A2D84E43B9EA4AC5D1286956\"],\"credits_based\":[null,false],\"ignore_due_email\":[null,false],\"two_step\":[true,false],\"interval\":[null,28],\"interval_type\":[null,\"months\"],\"payable_with\":[null,\"credit_card\"],\"id\":[null,\"069FD11F498D4FC4AC3A054D84606A20\"],\"created_at\":[null,\"2022-02-22T22:25:42-03:00\"],\"updated_at\":[null,\"2022-02-22T22:25:42-03:00\"]}",
+            "created_at": "2022-02-22T22:25:44-03:00"
+        },
+        {
+            "id": "2982D9E19D8B4B13881CFC9F8398FE47",
+            "description": "Subscription Created",
+            "notes": "Subscription Created ",
+            "subscription_changes": "{\"plan_identifier\":[null,\"48\"],\"price_cents\":[null,20160],\"customer_id\":[null,\"C6DC4157A2D84E43B9EA4AC5D1286956\"],\"credits_based\":[null,false],\"ignore_due_email\":[null,false],\"two_step\":[true,false],\"interval\":[null,28],\"interval_type\":[null,\"months\"],\"payable_with\":[null,\"credit_card\"],\"id\":[null,\"069FD11F498D4FC4AC3A054D84606A20\"],\"created_at\":[null,\"2022-02-22T22:25:42-03:00\"],\"updated_at\":[null,\"2022-02-22T22:25:42-03:00\"]}",
+            "created_at": "2022-02-22T22:25:42-03:00"
+        }
+    ],
+    "custom_variables": []
+}

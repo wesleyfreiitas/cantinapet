@@ -1,14 +1,9 @@
 {
-    "_readme": [
-        "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
-        "This file is @generated automatically"
-    ],
-    "content-hash": "889252681da4a2d6322ac30a9dbe071e",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
             "version": "7.4.1",
+            "version_normalized": "7.4.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
@@ -43,12 +38,14 @@
                 "ext-intl": "Required for Internationalized Domain Name (IDN) support",
                 "psr/log": "Required for using the Log middleware"
             },
+            "time": "2021-12-06T18:43:05+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
                     "dev-master": "7.4-dev"
                 }
             },
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "src/functions_include.php"
@@ -128,11 +125,12 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-12-06T18:43:05+00:00"
+            "install-path": "../guzzlehttp/guzzle"
         },
         {
             "name": "guzzlehttp/promises",
             "version": "1.5.1",
+            "version_normalized": "1.5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/promises.git",
@@ -150,12 +148,14 @@
             "require-dev": {
                 "symfony/phpunit-bridge": "^4.4 || ^5.1"
             },
+            "time": "2021-10-22T20:56:57+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
                     "dev-master": "1.5-dev"
                 }
             },
+            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "GuzzleHttp\\Promise\\": "src/"
@@ -212,11 +212,12 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-10-22T20:56:57+00:00"
+            "install-path": "../guzzlehttp/promises"
         },
         {
             "name": "guzzlehttp/psr7",
             "version": "1.8.3",
+            "version_normalized": "1.8.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
@@ -243,12 +244,14 @@
             "suggest": {
                 "laminas/laminas-httphandlerrunner": "Emit PSR-7 responses"
             },
+            "time": "2021-10-05T13:56:00+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
                     "dev-master": "1.7-dev"
                 }
             },
+            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "GuzzleHttp\\Psr7\\": "src/"
@@ -322,11 +325,12 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-10-05T13:56:00+00:00"
+            "install-path": "../guzzlehttp/psr7"
         },
         {
             "name": "phpmailer/phpmailer",
             "version": "v6.5.3",
+            "version_normalized": "6.5.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPMailer/PHPMailer.git",
@@ -362,7 +366,9 @@
                 "stevenmaguire/oauth2-microsoft": "Needed for Microsoft XOAUTH2 authentication",
                 "symfony/polyfill-mbstring": "To support UTF-8 if the Mbstring PHP extension is not enabled (^1.2)"
             },
+            "time": "2021-11-25T16:34:11+00:00",
             "type": "library",
+            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "PHPMailer\\PHPMailer\\": "src/"
@@ -400,11 +406,12 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-11-25T16:34:11+00:00"
+            "install-path": "../phpmailer/phpmailer"
         },
         {
             "name": "psr/http-client",
             "version": "1.0.1",
+            "version_normalized": "1.0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-client.git",
@@ -420,12 +427,14 @@
                 "php": "^7.0 || ^8.0",
                 "psr/http-message": "^1.0"
             },
+            "time": "2020-06-29T06:28:15+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
                     "dev-master": "1.0.x-dev"
                 }
             },
+            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "Psr\\Http\\Client\\": "src/"
@@ -452,11 +461,12 @@
             "support": {
                 "source": "https://github.com/php-fig/http-client/tree/master"
             },
-            "time": "2020-06-29T06:28:15+00:00"
+            "install-path": "../psr/http-client"
         },
         {
             "name": "psr/http-message",
             "version": "1.0.1",
+            "version_normalized": "1.0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-message.git",
@@ -471,12 +481,14 @@
             "require": {
                 "php": ">=5.3.0"
             },
+            "time": "2016-08-06T14:39:51+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
                     "dev-master": "1.0.x-dev"
                 }
             },
+            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "Psr\\Http\\Message\\": "src/"
@@ -505,11 +517,12 @@
             "support": {
                 "source": "https://github.com/php-fig/http-message/tree/master"
             },
-            "time": "2016-08-06T14:39:51+00:00"
+            "install-path": "../psr/http-message"
         },
         {
             "name": "ralouphie/getallheaders",
             "version": "3.0.3",
+            "version_normalized": "3.0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ralouphie/getallheaders.git",
@@ -528,7 +541,9 @@
                 "php-coveralls/php-coveralls": "^2.1",
                 "phpunit/phpunit": "^5 || ^6.5"
             },
+            "time": "2019-03-08T08:55:37+00:00",
             "type": "library",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "src/getallheaders.php"
@@ -549,11 +564,12 @@
                 "issues": "https://github.com/ralouphie/getallheaders/issues",
                 "source": "https://github.com/ralouphie/getallheaders/tree/develop"
             },
-            "time": "2019-03-08T08:55:37+00:00"
+            "install-path": "../ralouphie/getallheaders"
         },
         {
             "name": "symfony/deprecation-contracts",
             "version": "v2.5.0",
+            "version_normalized": "2.5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/deprecation-contracts.git",
@@ -568,6 +584,7 @@
             "require": {
                 "php": ">=7.1"
             },
+            "time": "2021-07-12T14:48:14+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -578,6 +595,7 @@
                     "url": "https://github.com/symfony/contracts"
                 }
             },
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "function.php"
@@ -616,16 +634,9 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-07-12T14:48:14+00:00"
+            "install-path": "../symfony/deprecation-contracts"
         }
     ],
-    "packages-dev": [],
-    "aliases": [],
-    "minimum-stability": "stable",
-    "stability-flags": [],
-    "prefer-stable": false,
-    "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "dev": true,
+    "dev-package-names": []
 }
