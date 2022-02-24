@@ -12,6 +12,12 @@
             <script type="text/javascript" src="formatter.min.js"></script>
             <script type="text/javascript" src="jquery.js"></script>
             <link rel="stylesheet" type="text/css" href="css.css"/>
+            <!-- Adicionando JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+
+
 </head>
 <body>
 
@@ -65,9 +71,11 @@
                     <div class="form-inline field">
                         <div class="form-check">
                             <label>Eu tenho </label>
-                            <input name="numero" style="width: 50px" type="number" placeholder="1" />
-                            <label>, cachorro de nome</label>
-                            <input name="nomepet" id="nomepet" style="width: 100px" type="text" placeholder="Kira" />
+                            <input name="numero" style="width: 50px" type="text" placeholder="1" />
+                            <label>cachorro de nome</label>
+                            <input name="nomepet" id="nomepet" style="width: 150px" type="text" placeholder="Nome do pet" />
+                            <label>CPF:</label>
+                            <input name="cpf" id="cpf" style="width: 100px" type="text" placeholder="cpf" />
                         </div>
                     </div>
                 </div>
@@ -84,9 +92,14 @@
                 <div class="form-inline field">
                     <div class="form-check">
                         <label>Meu CEP é </label>
-                        <input name="cep" style="width: 100px" type="text" placeholder="60860000" />
+                        <input id="cep" name="cep" style="width: 150px" type="text" placeholder="60860-000"/>
+                        <input id="rua" name="rua" type="hidden"/>
+                        <input id="bairro" name="bairro" type="hidden"/>
+                        <input id="cidade" name="cidade" type="hidden"/>
+                        <input id="uf" name="uf" type="hidden"/>
+                        
                         <label> e meu número é </label>
-                        <input name="fone" style="width: 150px" type="text" placeholder="5511999999999" />
+                        <input name="fone" style="width: 150px" type="text" placeholder="99999-9999"/>
                     </div>
                 </div>
 
@@ -97,21 +110,21 @@
             <div class="page">
                 <div class="form-inline field">
                     <div class="form-check">
-                        <!--aqui vem o nome do pet recuperado do banco-->
+                        <!--Aqui vem o nome do pet recuperado do banco-->
                         <h3 id=pnome></h3>
                         <label> tem </label>
-                        <input name="idade" style="width: 30px" type="number"  />
+                        <input name="idade" style="width: 30px" type="text"  />
                         <label> anos e pesa </label>
-                        <input name="peso" style="width: 50px" type="number" />
+                        <input name="peso" style="width: 50px" type="text" />
                         <label> kg </label>
-                        <input name="gramas" style="width: 50px" type="number" />
+                        <input name="gramas" style="width: 50px" type="text" />
                         <label> g </label>
                     </div>
                 </div>
 
                 <div class="form-inline field">
                     <div class="form-check">
-                        <!--aqui vem o nome do pet recuperado do banco-->
+                        <!--Aqui vem o nome do pet recuperado do banco-->
                         <h3 id=pnome2></h3><br>
                         <label>é da raça </label>
                         <select name="raca" style="width: 220px">
@@ -192,7 +205,7 @@
     </div>
 
     <div class="token-area">
-        <label for="token">Token do Cartão de Crédito - Enviar para seu Servidor</label>
+        <label for="token"></label>
         <input type="hidden" name="token" id="token" value="" readonly="true" size="64" style="text-align:center" />
     </div>
        
@@ -205,6 +218,71 @@
         </form>
     </div>
 </div>
+    <!-- Adicionando Javascript -->
+    <script>
+
+        $(document).ready(function() {
+
+            function limpa_formulário_cep() {
+                // Limpa valores do formulário de cep.
+                $("#rua").val("");
+                $("#bairro").val("");
+                $("#cidade").val("");
+                $("#uf").val("");
+            }
+            
+            //Quando o campo cep perde o foco.
+            $("#cep").blur(function() {
+
+                //Nova variável "cep" somente com dígitos.
+                var cep = $(this).val().replace(/\D/g, '');
+
+                //Verifica se campo cep possui valor informado.
+                if (cep != "") {
+
+                    //Expressão regular para validar o CEP.
+                    var validacep = /^[0-9]{8}$/;
+
+                    //Valida o formato do CEP.
+                    if(validacep.test(cep)) {
+
+                        //Preenche os campos com "..." enquanto consulta webservice.
+                        $("#rua").val("...");
+                        $("#bairro").val("...");
+                        $("#cidade").val("...");
+                        $("#uf").val("...");
+
+                        //Consulta o webservice viacep.com.br/
+                        $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
+
+                            if (!("erro" in dados)) {
+                                //Atualiza os campos com os valores da consulta.
+                                $("#rua").val(dados.logradouro);
+                                $("#bairro").val(dados.bairro);
+                                $("#cidade").val(dados.localidade);
+                                $("#uf").val(dados.uf);
+                            } //end if.
+                            else {
+                                //CEP pesquisado não foi encontrado.
+                                limpa_formulário_cep();
+                                alert("CEP não encontrado.");
+                            }
+                        });
+                    } //end if.
+                    else {
+                        //cep é inválido.
+                        limpa_formulário_cep();
+                        alert("Formato de CEP inválido.");
+                    }
+                } //end if.
+                else {
+                    //cep sem valor, limpa formulário.
+                    limpa_formulário_cep();
+                }
+            });
+        });
+
+    </script>
 <script src="script.js"></script>
 <script>
 function myfunction(){

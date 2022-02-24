@@ -1,14 +1,24 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 <?php
+//DADOS DO BANCO
 $servidor = "localhost";
 $usuario = "root";
 $senha = "";
 $db = "banco";
-//---------
+//DADOS QUE VEM DO FORMULÁRIO
 $numero = $_POST['numero'];
+$cpf = $_POST['cpf'];
 $nomepet = $_POST['nomepet'];
 $nomedono = $_POST['nomedono'];
 $email = $_POST['email'];
 $cep = $_POST['cep'];
+$district = $_POST['bairro'];
+$state = $_POST['uf'];
+$city = $_POST['cidade'];
+$street = $_POST['rua'];
 $fone = $_POST['fone'];
 $idade = $_POST['idade'];
 $peso = $_POST['peso'];
@@ -31,12 +41,14 @@ curl_setopt_array($curl, [
   CURLOPT_TIMEOUT => 30,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => "POST",
-  CURLOPT_POSTFIELDS => "{\"email\":\"$email\",\"name\":\"$nomedono\",\"phone\":$fone,\"phone_prefix\":85,\"cpf_cnpj\":\"60344242323\",\"zip_code\":\"$cep\",\"number\":\"191\",\"street\":\"TRES CORACOES\",\"city\":\"FORTALEZA\",\"state\":\"CE\",\"district\":\"PASSARE\"}",
+  CURLOPT_POSTFIELDS => "{\"email\":\"$email\",\"name\":\"$nomedono\",\"phone\":$fone,\"phone_prefix\":85,\"cpf_cnpj\":\"$cpf\",\"zip_code\":\"$cep\",\"number\":\"0\",\"street\":\"$street\",\"city\":\"$city\",\"state\":\"$state\",\"district\":\"$district\"}",
   CURLOPT_HTTPHEADER => [
     "Accept: application/json",
     "Content-Type: application/json"
   ],
 ]);
+
+//Analisa a string codificada JSON e converte-a em uma variável do PHP.
 
 $response = json_decode(curl_exec($curl));
 
@@ -48,9 +60,11 @@ if ($err) {
   echo "cURL Error #:" . $err;
 } else {
 
-  $cliente = $response->id; //preservar esse valor para passar na assinatura
+//O response->id é a id do cliente que acabou de ser criado.
 
-  echo $cliente;
+$cliente = $response->id;
+//Exibe id do cliente, para saber se foi gerado.
+//echo $cliente;
 
 //FINALIZANDO A CRIAÇÃO DO CLIENTE INICIANDO A LISTAGEM DOS PLANOS
 
@@ -68,6 +82,7 @@ curl_setopt_array($curl, [
     "Accept: application/json"
   ],
 ]);
+//Analisa a string codificada JSON e converte-a em uma variável do PHP.
 
 $response = json_decode(curl_exec($curl));
 $err = curl_error($curl);
@@ -77,7 +92,7 @@ curl_close($curl);
 if ($err) {
   echo "cURL Error #:" . $err;
 } else {
-
+//COMUNICAÇÃO COM O BANCO, ADICIONA DADOS DO DONO E DO PET AO BANCO.
 $conexao = mysqli_connect($servidor, $usuario, $senha, $db);
 
 $insere = "INSERT INTO dono (nomedono, email, cep, fone, senha) VALUES ('$nomedono', '$email', '$cep','$fone', '$senha2')";
@@ -87,6 +102,7 @@ VALUES ('$nomepet', '$idade', '$peso', '$gramas', '$raca', '$score', '$plano', '
 mysqli_query($conexao, $insere);
 mysqli_query($conexao, $insere2);
 
+//CALCULO DO PLANO QUE SERÁ ENVIADO PARA FAZER A CONFIGURAÇÃO DO PLANO
 function chamaplano($plano)
 {
     $cd = 160;
@@ -113,16 +129,21 @@ function chamaplano($plano)
         return $pf;
     }
 }
-//FINALIZANDO A LISTAGEM DOS PLANOS INICIANDO A CRIAÇÃO DO PLANO
 
-
+//FINALIZANDO A LISTAGEM DOS PLANOS INICIANDO A CRIAÇÃO DO PLANO.
+//REALIZANDO A ADIÇÃO DE MAIS UM NO ID DO ÚLTIMO PLANO
 $idPlano = $response->totalItems + 1;
 
 $planin = chamaplano($plano);
 
+//CONVERTENDO OS VALORES ENCONTRADOS EM CENTAVO.
 $valorPlano = $planin*100;
-echo "<br>" . $valorPlano;
-}}
+
+//echo "<br>" . $valorPlano;
+
+}
+}
+//CRIA PLANO
 $curl = curl_init();
 
 curl_setopt_array($curl, [
@@ -140,7 +161,9 @@ curl_setopt_array($curl, [
   ],
 ]);
 
-$response2 = json_decode(curl_exec($curl));
+//Analisa a string codificada JSON e converte-a em uma variável do PHP.
+
+$response = json_decode(curl_exec($curl));
 $err = curl_error($curl);
 
 curl_close($curl);
@@ -148,7 +171,6 @@ curl_close($curl);
 if ($err) {
   echo "cURL Error #:" . $err;
 } else {
-
 
 //FINALIZANDO A CRIAÇÃO DOS PLANOS E INICIEI A CRIAÇÃO DA ASSINATURA.
 
@@ -169,6 +191,8 @@ curl_setopt_array($curl, [
   ],
 ]);
 
+//Analisa a string codificada JSON e converte-a em uma variável do PHP.
+
 $response = json_decode(curl_exec($curl));
 $err = curl_error($curl);
 
@@ -177,13 +201,13 @@ curl_close($curl);
 if ($err) {
   echo "cURL Error #:" . $err;
 } else {
-  //RECEBE OS NOME DO CARTÃO E TOKEN DE AUTORIZAÇÃO DO SERVIDOR DA YUGO.
+  //RECEBE OS DADOS DO CARTÃO E TOKEN DE AUTORIZAÇÃO DO SERVIDOR DA YUGO.
 
   $assinatura = $response->id;
-
-  echo "Assinatura ".$assinatura."<br>";
-  
-  echo $e."<br>";
+//IMPRIME O ID DA ASSINATURA
+  //echo "Assinatura ".$assinatura."<br>";
+  //IMPRIME O TOKEN RECEBIDO DA IUGO PARA FATURAR NO CARTÃO
+  //echo $e."<br>";
 
   $curl = curl_init();
 
@@ -201,6 +225,7 @@ if ($err) {
       "Content-Type: application/json"
     ],
   ]);
+//Analisa a string codificada JSON e converte-a em uma variável do PHP.
 
   $response = json_decode(curl_exec($curl));
   $err = curl_error($curl);
@@ -210,11 +235,13 @@ if ($err) {
   if ($err) {
     echo "cURL Error #:" . $err;
   } else {
+    //PEGA O ID DO METODO DE PAGAMENTO CRIADO.
 
     $pagamento = $response->id;
-    echo "ID pagamento ".$pagamento;
 
-    //busca assinatura
+    //echo "ID pagamento ".$pagamento;
+
+    //BUSCA A ASSINATURA CRIADA PARA PEGAR O CAMPO RECENTS_INVOICES
     $curl = curl_init();
 
 curl_setopt_array($curl, [
@@ -229,6 +256,7 @@ curl_setopt_array($curl, [
     "Accept: application/json"
   ],
 ]);
+//Analisa a string codificada JSON e converte-a em uma variável do PHP.
 
 $response = json_decode(curl_exec($curl));
 
@@ -239,17 +267,17 @@ curl_close($curl);
 if ($err) {
   echo "cURL Error #:" . $err;
 } else {
-
+//TODA A ASSINATURA
 $recent_invoices_obj = $response->recent_invoices;
-
+//Retorna a string contendo a representação JSON de um value.
 $recent_invoices = json_encode($recent_invoices_obj);
-
+//FILTREI A COBRANÇA RECENTE
 $data2 = json_decode($recent_invoices);
 
 $recent_invoices2 = $data2[0]->id;
-
-echo $recent_invoices2."FATURA GERADA<br>";
-//ATIVANDO FATURA.
+//IMPRIME O ID DA COBRAÇA QUE SERÁ USADA NA COBRANÇA DIRETA.
+//echo $recent_invoices2."FATURA GERADA<br>";
+//EFETUANDO A COBRANÇA DIRETA
 $curl = curl_init();
 
 curl_setopt_array($curl, [
@@ -267,7 +295,8 @@ curl_setopt_array($curl, [
   ],
 ]);
 
-$response = curl_exec($curl);
+$response = json_decode(curl_exec($curl));
+
 $err = curl_error($curl);
 
 curl_close($curl);
@@ -275,17 +304,26 @@ curl_close($curl);
 if ($err) {
   echo "cURL Error #:" . $err;
 } else {
-  echo $response;
+  
+$mensagem =  $response->message;
+
+$success = "Autorizado";
+
+if ($mensagem == $success) {?>
+  <div class="alert alert-success" role="alert">
+  Transação autorizada no valor de <?php echo "<br>" . $valorPlano;?>
+    </div>
+    <?php
+}else{?>
+  <div class="alert alert-danger" role="alert">
+  Transação negada no valor de <?php echo "<br>" . $planin;?>
+    </div>
+    <?php
+}
+}
 }
   }
 }
-}
-
-/*?>
-
-<input type="text" disabled value="<?php echo $planin;?>">
-
-<?php
 include('Email.php');
 session_start();
 
@@ -312,15 +350,19 @@ $mail = new Email('smtp.gmail.com', 'wesleydefreiitas01@gmail.com', 'qyxgasvbvge
 $mail->enviarPara($_POST['email'], $info['nomedono']);
 //A url que estamos passando na variável $url é para onde o usuário será mandado quando clicar no link
 // recebido no email
-$url = 'http://localhost:8080/study_pdo/redefinir.php';
+$url = 'http://localhost/MeusProjetos/iugo/cantinapet/redefinir.php';
 //A variável $corpo é onde se encontra o texto do email, onde estamos informando em um link a
 // url para onde o usuário será mandado ao clicar no link recebido no email e com um token único que
 // foi gerado quando ele clicou em redefinir a senha.
-$corpo = 'Olá ' . $info['nomedono'] . ', <br>
-           Voce se cadastrou no Catnina Pet. Acesse o link abaixo para Defina sua senha.<br>
-           <h3><a href="' . $url . '?token=' . $_SESSION['token'] . '">Definir a sua senha</a></h3>';
+$corpo = 'Olá ' . $info['nomedono'] . ', <br><br>
+          O seu cadastro já foi realizado e logo entraremos em contato com você.<br><br>
+          Se você tiver alguma dúvida no cadastro, pode nos contatar via WhatsApp pelo número <a href="https://api.whatsapp.com/send?phone=5585997617976">(85) 99761-7976</a>.<br><br>
+          Seu pet vai amar <3.<br><br>
+          Muito obrigado pela sua escolha.<br><br>
+          Acesse o link abaixo para definir sua senha.<br><br>
+          <a " href="' . $url . '?token=' . $_SESSION['token'] . '">Definir a sua senha</a>';
 
-$informacoes = ['Assunto' => 'Confirmação de cadastro', 'Corpo' => $corpo];
+$informacoes = ['Assunto' => 'Cantina Pet - Confirmação de cadastro', 'Corpo' => $corpo];
 $mail->formatarEmail($informacoes);
 
 if ($mail->enviarEmail()) {
@@ -328,5 +370,5 @@ if ($mail->enviarEmail()) {
 } else {
     $data['erro'] = true;
 }
-}*/
+
 }
